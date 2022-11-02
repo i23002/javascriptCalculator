@@ -5,20 +5,26 @@ class MyComponent extends React.Component{
     constructor(props){
       super(props);
       this.state={
-          input: '0',
+          input: '',
           output : 0
       }
+      
       this.handleChange = this.handleChange.bind(this);
       this.equals = this.equals.bind(this);
       this.clear = this.clear.bind(this);
   
     }
     handleChange(event){
-      this.setState({
-  
-          input: event.target.value
+        
+        if (event.target.value === "X"){
+            event.target.value = "*"
+        }
+      this.setState( state => ({
+
+          input: state.input + event.target.value,
+          output : state.input + event.target.value
     
-        })
+        }))
     }
     equals(){
        this.setState({
@@ -28,7 +34,8 @@ class MyComponent extends React.Component{
     }
     clear(){
       this.setState({
-          input : '0'
+          input : '',
+          output: 0
       })
     }
     render(){
@@ -37,38 +44,38 @@ class MyComponent extends React.Component{
             <table>
                 <thead>
                     <tr colSpan="2">
-                        <td id="display" colSpan="3">display</td>
+                        <td id="display" colSpan="3"><input value={this.state.input} /><input value={this.state.output}/></td>
                     </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td id="zero"><input type="button" value="0"/></td>
-                    <td id="one"><input type="button" value="1"/></td>
-                    <td id="two"><input type="button" value="2"/></td>
+                    <td id="zero"><input type="button" value="0" onClick={this.handleChange}/></td>
+                    <td id="one"><input type="button" value="1" onClick={this.handleChange}/></td>
+                    <td id="two"><input type="button" value="2" onClick={this.handleChange}/></td>
                 </tr>
                 <tr>
-                    <td id="three"><input type="button" value="3"/></td>
-                    <td id="four"><input type="button" value="4"/></td>
-                    <td id="five"><input type="button" value="5"/></td> 
+                    <td id="three"><input type="button" value="3" onClick={this.handleChange}/></td>
+                    <td id="four"><input type="button" value="4" onClick={this.handleChange}/></td>
+                    <td id="five"><input type="button" value="5" onClick={this.handleChange}/></td> 
                 </tr>
                 <tr>
-                    <td id="six"><input type="button" value="6"/></td>
-                    <td id="seven"><input type="button" value="7"/></td>
-                    <td id="eight"><input type="button" value="8"/></td>
+                    <td id="six"><input type="button" value="6" onClick={this.handleChange}/></td>
+                    <td id="seven"><input type="button" value="7" onClick={this.handleChange}/></td>
+                    <td id="eight"><input type="button" value="8" onClick={this.handleChange}/></td>
                 </tr>
                 <tr>
-                    <td id="nine"><input type="button" value="9"/></td>
-                    <td id="add"><input type="button" value="+"/></td>
-                    <td id="subtract"><input type="button" value="-"/></td>
+                    <td id="nine"><input type="button" value="9" onClick={this.handleChange}/></td>
+                    <td id="add"><input type="button" value="+" onClick={this.handleChange}/></td>
+                    <td id="subtract"><input type="button" value="-" onClick={this.handleChange}/></td>
                 </tr>
                 <tr>
-                    <td id="multiply"><input type="button" value="X"/></td>
-                    <td id="divide"><input type="button" value="/"/></td>
-                    <td id="decimal"><input type="button" value="."/></td>
+                    <td id="multiply"><button type="submit" value="X" onClick={this.handleChange}>X</button></td>
+                    <td id="divide"><input type="button" value="/" onClick={this.handleChange}/></td>
+                    <td id="decimal"><input type="button" value="." onClick={this.handleChange}/></td>
                 </tr>
                 <tr>
-                    <td id='clear'><input type="button" value="AC"/></td>
-                    <td id='equals' colSpan="2"><input type="button" value="="/></td>
+                    <td id='clear'><input type="button" value="AC" onClick={this.clear}/></td>
+                    <td id='equals' colSpan="2"><input type="button" value="=" onClick={this.equals}/></td>
                 </tr>
                 </tbody>
             </table>
