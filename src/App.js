@@ -6,7 +6,7 @@ class MyComponent extends React.Component{
       super(props);
       this.state={
           input: '',
-          output : 0
+          output : '0'
       }
       
       this.handleChange = this.handleChange.bind(this);
@@ -22,16 +22,36 @@ class MyComponent extends React.Component{
       this.setState( state => ({
 
           input: state.input + event.target.value,
-          output : state.input + event.target.value
+          output :state.input+  event.target.value
     
         }))
     }
     equals(){
+        if(this.state.input.length === 4){
+            if(this.state.input[2] === "-"){
+                // eslint-disable-next-line react/no-direct-mutation-state
+                this.state.input = this.state.input.replace(this.state.input[2] , "")
+                this.setState(state =>({
+                    // eslint-disable-next-line no-eval
+                    output :((eval(state.output)).toString())
+                }))
+        }
+            else{
+                // eslint-disable-next-line react/no-direct-mutation-state
+                this.state.input = this.state.input.replace(this.state.input[1],"")
+                this.setState({
+                    // eslint-disable-next-line no-eval
+                    output : eval(this.state.input)
+                })
+            }
+        }
+        else{
        this.setState({
           // eslint-disable-next-line no-eval
           output : eval(this.state.input)
       })
     }
+}
     clear(){
       this.setState({
           input : '',
