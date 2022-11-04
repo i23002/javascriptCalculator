@@ -93,11 +93,11 @@ button{
   padding-left: 40%;
   padding-right: 30%;
   font-size: 20px;
-  border: 1px solid green;
-  background-color: green;
+  border: 1px solid gray;
+  background-color: gray;
 }
 .button4{
-  background-color: green;
+  background-color: gray;
   color: white;
 }
 .button2 , #clear{
