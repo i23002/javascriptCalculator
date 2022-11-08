@@ -28,9 +28,10 @@ class MyComponent extends React.Component{
         }
 
         if (this.state.count === 0 && event.target.value === "0"){
-            this.setState({
-                input : event.target.value
-            })
+            this.setState(state => ({
+                input : event.target.value,
+                
+            }))
         }else if(this.state.dot === 0 && event.target.value === "."){
             this.setState(state => ({
                  input : state.input + event.target.value
@@ -44,7 +45,7 @@ class MyComponent extends React.Component{
       this.setState( state => ({
 
           input: state.input + event.target.value,
-          output :event.target.value,
+          output : event.target.value,
           count : state.count + 1,
           dot : 0
     
@@ -52,7 +53,7 @@ class MyComponent extends React.Component{
     }
 }
     equals(){
-        if(this.state.input.length === 4){
+        if((this.state.input.length === 4) && ((this.state.input[2] === "-") || (this.state.input[2] === "*"))){
             if(this.state.input[2] === "-"){
                 // eslint-disable-next-line react/no-direct-mutation-state
                 this.state.input = this.state.input.replace(this.state.input[2] , "")
@@ -66,12 +67,15 @@ class MyComponent extends React.Component{
                 this.state.input = this.state.input.replace(this.state.input[1],"")
                 this.setState({
                     // eslint-disable-next-line no-eval
-                    output : eval(this.state.input)
+                   
+                    // eslint-disable-next-line no-eval
+                    output : eval(this.state.output)
                 })
             }
         }
         else{
        this.setState({
+          // eslint-disable-next-line no-eval
           // eslint-disable-next-line no-eval
           output : eval(this.state.input)
       })
