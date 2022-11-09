@@ -6,9 +6,10 @@ class MyComponent extends React.Component{
       super(props);
       this.state={
           input: '',
-          output : '0',
+          output : 0,
           count : 0,
-          dot : 0
+          dot : 0,
+          symbols : 0
       }
       
       this.handleChange = this.handleChange.bind(this);
@@ -17,6 +18,13 @@ class MyComponent extends React.Component{
   
     }
     handleChange(event){
+      
+      if((event.target.value === "X") || (event.target.value === "+") || (event.target.value === "-")){
+         this.setState(state => ({
+           symbols : state.symbols+1,
+         }))
+         }
+      
         if (event.target.value === "X"){
             event.target.value = "*"
         }
@@ -39,20 +47,37 @@ class MyComponent extends React.Component{
         }else if(this.state.dot > 0 && event.target.value === "."){
             this.setState(state => ({
                 input : state.input,
+              dot : state.dot + 1,
             }))
         }
+      else if(this.state.dot >= 1 && this.state.symbols === 0){
+        this.setState(state => ({
+          input: state.input + event.target.value,
+          dot : state.dot + 1,
+        }))
+        
+      }else if(this.state.dot >= 1 && this.state.symbols >= 0){
+        this.setState(state => ({
+          input: state.input + event.target.value,
+          dot : 0,
+        }))
+        
+      }
+  
         else{ 
       this.setState( state => ({
 
           input: state.input + event.target.value,
-          output : event.target.value,
+          output : state.input + event.target.value,
           count : state.count + 1,
-          dot : 0
+          dot : 0,
+        symbols : 0,
     
         }))
     }
 }
     equals(){
+      
         if((this.state.input.length === 4) && ((this.state.input[2] === "-") || (this.state.input[2] === "*"))){
             if(this.state.input[2] === "-"){
                 // eslint-disable-next-line react/no-direct-mutation-state
@@ -69,16 +94,18 @@ class MyComponent extends React.Component{
                     // eslint-disable-next-line no-eval
                    
                     // eslint-disable-next-line no-eval
-                    output : eval(this.state.output)
+                    output : eval(this.state.output).toString()
                 })
             }
         }
         else{
-       this.setState({
+       this.setState( state=> ({
           // eslint-disable-next-line no-eval
           // eslint-disable-next-line no-eval
-          output : eval(this.state.input)
-      })
+          output : eval(this.state.input).toString(),
+          // eslint-disable-next-line no-eval
+          input: state.input.concat("=").concat(eval(this.state.input).toString())
+      }))
     }
 }
     clear(){
@@ -95,7 +122,7 @@ class MyComponent extends React.Component{
             <table>
                 <thead>
                     <tr colSpan="2">
-                        <td colSpan="3"><input value={this.state.input} id="display"/><input value={this.state.output} id="display"/></td>
+                        <td colSpan="3"><input value={this.state.input} id="dis"/><input value={this.state.output} id="display"/></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -134,7 +161,6 @@ class MyComponent extends React.Component{
       )
     }
   }
-
   export default MyComponent;
 
 

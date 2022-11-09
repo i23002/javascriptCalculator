@@ -44,6 +44,7 @@ div{
 
 table, td , th{
   border: 1px solid black;
+  border-collapse: collapse;
 }
 
 table{
@@ -54,9 +55,9 @@ table{
   height: 50vh;
 }
 
-#display{
+#display , #dis{
   display: block;
-  width: 100%;
+  width: 90%;
   height: 4vh;
   margin-top: 10px;
   margin-bottom: -15px;
