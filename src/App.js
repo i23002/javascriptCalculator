@@ -60,6 +60,7 @@ class MyComponent extends React.Component{
         this.setState(state => ({
           input: state.input + event.target.value,
           dot : 0,
+          symbols : 0,
         }))
         
       }
@@ -113,7 +114,8 @@ class MyComponent extends React.Component{
           input : '',
           output: 0,
           count : 0,
-          dot : 0
+          dot : 0,
+          symbols: 0
       })
     }
     render(){
