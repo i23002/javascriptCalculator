@@ -1,7 +1,9 @@
 import React from 'react';
 import './App.css';
 // eslint-disable-next-line no-unused-vars
-import {evaluate} from 'mathjs';
+import {create , all} from 'mathjs';
+const config = {}
+const math = create(all, config)
 
 class MyComponent extends React.Component{
     constructor(props){
@@ -29,28 +31,23 @@ class MyComponent extends React.Component{
       
         if (event.target.value === "X"){
             event.target.value = "*"
-        }
-
-        if (event.target.value === "."){
-            this.setState(state =>({
-                dot :  1
+        } if (this.state.symbols === 0 && event.target.value === "0"){
+            this.setState(state => ({
+                input : event.target.value, 
             }))
         }
-
-        if (this.state.symbols === 0 && event.target.value === "0"){
+    else if(this.state.dot === 0 && event.target.value === "."){
             this.setState(state => ({
-                input :state.input + event.target.value,
-                symbols : 0
+                 input : state.input+ event.target.value,
+                 dot : state.dot + 1,
+
+                 
                 
-            }))
-        }else if(this.state.dot === 0 && event.target.value === "."){
-            this.setState(state => ({
-                 input : state.input+ event.target.value
             }))
         }else if(this.state.dot > 0 && event.target.value === "."){
             this.setState(state => ({
                 input : state.input,
-              dot : state.dot + 1,
+                
             }))
         }
       else if(this.state.dot >= 1 && this.state.symbols === 0){
@@ -79,7 +76,7 @@ class MyComponent extends React.Component{
     
         }))
     }
-}
+    }
     equals(){
       
         if((this.state.input.length === 4) && ((this.state.input[2] === "-") || (this.state.input[2] === "*"))){
@@ -88,7 +85,7 @@ class MyComponent extends React.Component{
                 this.state.input = this.state.input.replace(this.state.input[2] , "")
                 this.setState({
                     // eslint-disable-next-line no-eval
-                    output :"-".concat(((eval(this.state.input)).toString()))
+                    output :"-".concat(((math.evaluate(this.state.input)).toString()))
                 })
         }
             else{
@@ -98,7 +95,7 @@ class MyComponent extends React.Component{
                     // eslint-disable-next-line no-eval
                    
                     // eslint-disable-next-line no-eval
-                    output : evaluate(this.state.output).toString()
+                    output : math.evaluate(this.state.output).toString()
                 })
             }
         }
@@ -106,9 +103,9 @@ class MyComponent extends React.Component{
        this.setState( state=> ({
           // eslint-disable-next-line no-eval
           // eslint-disable-next-line no-eval
-          output : eval(this.state.input).toString(),
+          output : (math.evaluate(this.state.input)).toString(),
           // eslint-disable-next-line no-eval
-          input: state.input.concat("=").concat(eval(this.state.input).toString())
+          input: state.input.concat("=").concat((math.evaluate(this.state.input).toString()))
       }))
     }
 }
