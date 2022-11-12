@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+// eslint-disable-next-line no-unused-vars
+import {evaluate} from 'mathjs';
 
 class MyComponent extends React.Component{
     constructor(props){
@@ -35,14 +37,15 @@ class MyComponent extends React.Component{
             }))
         }
 
-        if (this.state.count === 0 && event.target.value === "0"){
+        if (this.state.symbols === 0 && event.target.value === "0"){
             this.setState(state => ({
-                input : event.target.value,
+                input :state.input + event.target.value,
+                symbols : 0
                 
             }))
         }else if(this.state.dot === 0 && event.target.value === "."){
             this.setState(state => ({
-                 input : state.input + event.target.value
+                 input : state.input+ event.target.value
             }))
         }else if(this.state.dot > 0 && event.target.value === "."){
             this.setState(state => ({
@@ -95,7 +98,7 @@ class MyComponent extends React.Component{
                     // eslint-disable-next-line no-eval
                    
                     // eslint-disable-next-line no-eval
-                    output : eval(this.state.output).toString()
+                    output : evaluate(this.state.output).toString()
                 })
             }
         }
