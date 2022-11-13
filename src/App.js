@@ -31,9 +31,10 @@ class MyComponent extends React.Component{
       
         if (event.target.value === "X"){
             event.target.value = "*"
-        } if (this.state.symbols === 0 && event.target.value === "0"){
+        } if (this.state.symbols  === 0 && event.target.value === "0"){
             this.setState(state => ({
-                input : event.target.value, 
+                input : event.target.value,
+             
             }))
         }
     else if(this.state.dot === 0 && event.target.value === "."){
@@ -72,7 +73,7 @@ class MyComponent extends React.Component{
           output : state.input + event.target.value,
           count : state.count + 1,
           dot : 0,
-        symbols : 0,
+        
     
         }))
     }
