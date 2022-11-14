@@ -130,6 +130,7 @@ button{
   #display{
     height: 1vh;
     margin-bottom: -1px;
+    font-size: 0.5vh;
   }
   [type = "button"]{
     font-size: 6px;

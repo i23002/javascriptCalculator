@@ -22,8 +22,8 @@ class MyComponent extends React.Component{
   
     }
     handleChange(event){
-      
-      if((event.target.value === "X") || (event.target.value === "+") || (event.target.value === "-")){
+      var arr = ["1","2","3","4","5","6","7","8","9"]
+      if((event.target.value === "X") || (event.target.value === "+") || (event.target.value === "-") || (event.target.value in arr)){
          this.setState(state => ({
            symbols : state.symbols+1,
          }))
@@ -31,7 +31,7 @@ class MyComponent extends React.Component{
       
         if (event.target.value === "X"){
             event.target.value = "*"
-        } if (this.state.symbols  === 0 && event.target.value === "0"){
+        } if (this.state.count  === 0 && event.target.value === "0"){
             this.setState(state => ({
                 input : event.target.value,
              
